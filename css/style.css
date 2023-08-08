@@ -82,3 +82,44 @@ h1 {
   line-height: 12px;
   color: #757575;
 }
+
+.gallery-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  justify-items: center;
+}
+
+.gallery-img-card {
+  width: 350px;
+  height: 351px;
+  margin-bottom: 30px;
+}
+
+.gallery-img-card img {
+  width: 350px;
+  height: 320px;
+  object-fit: cover;
+  object-position: center;
+  border-radius: 10px;
+}
+
+.gallery-image-card-infos-container {
+  display: flex;
+  justify-content: space-between;
+  color: #901C1C;
+  font-size: 18px;
+}
+
+.daily-price-container {
+  position: fixed;
+  right: 30px;
+  bottom: 0;
+  background-color: #DB8876;
+  display: flex;
+  width: 376px;
+  padding: 15px;
+  justify-content: space-between;
+  font-size: 22px;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+}
