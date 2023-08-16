@@ -66,8 +66,86 @@ async function displayData(photographer, images) {
   // Display daily price
   const dailyPriceDOM = photographerModel.getDailyPriceDOM();
   main.appendChild(dailyPriceDOM);
-}
+  
+ 
 
+  // Display modal media
+  const modalMediaDOM = photographerModel.getModalMediaDOM();
+  main.appendChild(modalMediaDOM);
+
+  // Alimente modal media
+  const modalMediaEl = document.querySelector('.container-modal-media');
+  images[0].forEach(image => {
+    const imgEl = document.querySelector(`#media-${image.id}`);
+    imgEl.addEventListener('click', () => {
+      const mediaIndex = images[0].findIndex(media => media.id === image.id);
+      const [modalMediaDOM, modalTitleDOM] = photographerModel.getModalElementMediaDOM(images[0][mediaIndex]);
+      const containerImgEl = document.querySelector('#container_image_modal_media');
+      containerImgEl.appendChild(modalMediaDOM);
+      containerImgEl.appendChild(modalTitleDOM);
+      modalMediaEl.classList.add('is-open');
+    })
+  })
+
+  // Close modal media
+  const closeModalMediaEl = document.querySelector('#close_modal_media');
+  closeModalMediaEl.addEventListener('click', () => {
+    const containerImgEl = document.querySelectorAll('#container_image_modal_media > *');
+    console.log(containerImgEl)
+    containerImgEl.forEach(imgEl => {
+      imgEl.remove();
+    })
+    modalMediaEl.classList.remove('is-open');
+  })
+
+  // prev modal media
+  const prevModalMedia = document.querySelector('#prev_modal_media');
+  prevModalMedia.addEventListener('click', () => {
+    const containerMediaEl = document.querySelectorAll('#container_image_modal_media > *');
+    // Trouve l'id de l'ancienne image
+    const lastImgId = containerMediaEl[0].getAttribute('data-media-id');
+    let lastMediaIndex = images[0].findIndex(media => media.id === parseInt(lastImgId));
+    let newMediaIndex;
+    if(lastMediaIndex === 0) {
+      newMediaIndex = images[0].length - 1;
+    } else {
+      newMediaIndex = lastMediaIndex - 1;
+    }
+    // Supprime l'ancienne image
+    containerMediaEl.forEach(imgEl => {
+      imgEl.remove();
+    })
+    // Ajoute l'image précédente grâce à l'id de l'ancienne image
+    const [modalMediaDOM, modalTitleDOM] = photographerModel.getModalElementMediaDOM(images[0][newMediaIndex]);
+    const containerImgEl2 = document.querySelector('#container_image_modal_media');
+    containerImgEl2.appendChild(modalMediaDOM);
+    containerImgEl2.appendChild(modalTitleDOM);
+  })
+
+  // next modal media
+  const nextModalMedia = document.querySelector('#next_modal_media');
+  nextModalMedia.addEventListener('click', () => {
+    const containerMediaEl = document.querySelectorAll('#container_image_modal_media > *');
+    // Trouve l'id de l'ancienne image
+    const lastImgId = containerMediaEl[0].getAttribute('data-media-id');
+    let lastMediaIndex = images[0].findIndex(media => media.id === parseInt(lastImgId));
+    let newMediaIndex;
+    if(lastMediaIndex === images[0].length - 1) {
+      newMediaIndex = 0;
+    } else {
+      newMediaIndex = lastMediaIndex + 1;
+    }
+    // Supprime l'ancienne image
+    containerMediaEl.forEach(imgEl => {
+      imgEl.remove();
+    })
+    // Ajoute l'image suivante grâce à l'id de l'ancienne image
+    const [modalMediaDOM, modalTitleDOM] = photographerModel.getModalElementMediaDOM(images[0][newMediaIndex]);
+    const containerImgEl2 = document.querySelector('#container_image_modal_media');
+    containerImgEl2.appendChild(modalMediaDOM);
+    containerImgEl2.appendChild(modalTitleDOM);
+  })
+}
 
 
 async function init() {
