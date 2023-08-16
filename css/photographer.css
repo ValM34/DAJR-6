@@ -3,12 +3,25 @@
 }
 
 .photograph-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 60px;
     background-color: #FAFAFA;
     height: 300px;
     margin: 0 100px;
 }
 
-.contact_button {
+.photograph-header img {
+  height: 200px;
+  width: 200px;
+  object-fit: cover;
+  border-radius: 50%;
+  object-position: center;
+  margin-bottom: 20px;
+}
+
+.contact_button { 
     font-size: 20px;
     font-weight: bold;
     color: white;
@@ -73,4 +86,25 @@ form input {
     height: 68px;
     border: none;
     border-radius: 5px;
+}
+
+.select-filter-container {
+  width: fit-content;
+  height: 69px;
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+}
+
+.select-filter-container label {
+  margin-right: 10px;
+}
+
+.select-filter {
+  width: 170px;
+  height: 69px;
+  background-color: #901C1C;
+  font-size: 18px;
+  color: #FFFFFF;
+  border-radius: 5px;
 }
