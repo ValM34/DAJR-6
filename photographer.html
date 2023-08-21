@@ -18,38 +18,50 @@
         <button id="contact_button" class="contact_button" onclick="displayModal()">Contactez-moi</button>
       </div>
     </main>
-    <div id="contact_modal">
-			<div class="modal">
+    <div id="contact_modal" class="contact-modal-container">
+			<div class="contact-modal">
 				<header>
           <h2>Contactez-moi</h2>
           <img src="assets/icons/close.svg" onclick="closeModal()" />
         </header>
-				<form>
+				<form id="contact_form">
 					<div>
-            <label for="firstName">Prénom</label><br>
-            <input
-              type="text"
-              id="firstName"
-              name="firstName"
-            />
-            <label for="lastName">Nom</label><br>
-            <input
-              type="text"
-              id="lastName"
-              name="lastName"
-            />
-            <label for="email">Email</label><br>
-            <input
-              type="email"
-              id="email"
-              name="email"
-            />
-            <label for="message">Votre message</label><br>
-            <textarea
-              type="text"
-              id="message"
-              name="message"
-            ></textarea>
+            <div id="firstName_container" class="form-data">
+              <label for="firstName">Prénom</label><br>
+              <input
+                type="text"
+                id="firstName"
+                name="firstName"
+                class="text-control"
+              />
+            </div>
+            <div id="lastName_container" class="form-data">
+              <label for="lastName">Nom</label><br>
+              <input
+                type="text"
+                id="lastName"
+                name="lastName"
+                class="text-control"
+              />
+            </div>
+            <div id="email_container" class="form-data">
+              <label for="email">Email</label><br>
+              <input
+                type="email"
+                id="email"
+                name="email"
+                class="text-control"
+              />
+            </div>
+            <div id="message_container" class="form-data">
+              <label for="message">Votre message</label><br>
+              <textarea
+                type="text"
+                id="message"
+                name="message"
+                class="text-control"
+              ></textarea>
+            </div>
 					</div>
           <button class="contact_button">Envoyer</button>
 				</form>
@@ -58,5 +70,6 @@
     <script src="scripts/factories/photographer2.js"></script>
     <script src="/scripts/pages/photographer.js"></script>
     <script src="/scripts/utils/contactForm.js"></script>
+    <script src="/scripts/models/form.js"></script>
   </body>
 </html>

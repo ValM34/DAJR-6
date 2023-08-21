@@ -30,36 +30,51 @@ function photographerComponents(data, images) {
 
   function getSelectDOM() {
     const selectContainer = document.createElement('div');
-    selectContainer.classList.add('select-filter-container');
-    const label = document.createElement('label');
-    label.textContent = "Trier par";
+    selectContainer.classList.add("select-container");
+    selectContainer.setAttribute('id', 'select_container');
+    selectContainer.setAttribute('data-selected', 'closed');
 
-    const select = document.createElement('select');
-    select.classList.add('select-filter');
+    const popularity = document.createElement('p');
+    popularity.textContent = "popularité";
+    popularity.setAttribute('data-selected', 'true');
+    popularity.setAttribute('data-filter', 'popularity');
+    const date = document.createElement('p');
+    date.textContent = "date";
+    date.setAttribute('data-selected', 'false');
+    date.setAttribute('data-filter', 'date');
+    const title = document.createElement('p');
+    title.textContent = "title";
+    title.setAttribute('data-selected', 'false');
+    title.setAttribute('data-filter', 'title');
 
-    const popularityOption = document.createElement('option');
-    popularityOption.textContent = 'Popularité';
-
-    const dateOption = document.createElement('option');
-    dateOption.textContent = 'Date';
-
-    const titleOption = document.createElement('option');
-    titleOption.textContent = 'Titre';
-
-    select.appendChild(popularityOption);
-    select.appendChild(dateOption);
-    select.appendChild(titleOption);
-    selectContainer.appendChild(label);
-    selectContainer.appendChild(select);
+    selectContainer.appendChild(popularity);
+    selectContainer.appendChild(date);
+    selectContainer.appendChild(title);
 
     return selectContainer;
   }
 
-  function getGalleryDOM() {
+  function getGalleryDOM(filter = 'popularity') {
     const container = document.createElement('div');
     container.classList.add('gallery-container');
 
-    images[0].forEach(image => {
+    // Copy images[0]
+    let imagesCopy = images[0].slice();
+    // Filter imagesCopy
+    if(filter === 'popularity') {
+      imagesCopy.sort((a, b) => b.likes - a.likes);
+    } else if(filter === 'date') {
+      imagesCopy.sort((a, b) => {
+        let firstDate = new Date(a.date);
+        let secondDate = new Date(b.date);
+
+        return secondDate - firstDate;
+      });
+    } else if(filter === 'title') {
+      imagesCopy.sort((a, b) => a.title.localeCompare(b.title));
+    }
+
+    imagesCopy.forEach(image => {
       const imageCard = document.createElement('div');
       imageCard.classList.add('gallery-img-card')
       
