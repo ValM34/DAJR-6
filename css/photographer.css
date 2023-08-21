@@ -1,15 +1,15 @@
 #contact_modal {
-    display: none;
+  display: none;
 }
 
 .photograph-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 0 60px;
-    background-color: #FAFAFA;
-    height: 300px;
-    margin: 0 100px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 60px;
+  background-color: #FAFAFA;
+  height: 300px;
+  margin: 0 100px;
 }
 
 .photograph-header img {
@@ -21,90 +21,117 @@
   margin-bottom: 20px;
 }
 
-.contact_button { 
-    font-size: 20px;
-    font-weight: bold;
-    color: white;
-    padding: 11px;
-    width: 170px;
-    height: 70px;
-    border: none;
-    background-color: #901C1C;
-    border-radius: 5px;
-    cursor: pointer;
+.contact_button {
+  font-size: 20px;
+  font-weight: bold;
+  color: white;
+  padding: 11px;
+  width: 170px;
+  height: 70px;
+  border: none;
+  background-color: #901C1C;
+  border-radius: 5px;
+  cursor: pointer;
 }
 
-.modal {
-    border-radius: 5px;
-    background-color: #DB8876;
-    width: 50%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: space-between;
-    padding: 35px;
-    margin: auto;
+.contact-modal {
+  border-radius: 5px;
+  background-color: #DB8876;
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  padding: 35px;
+  margin: auto;
+  overflow-y: scroll;
+  max-height: 90vh;
+  position: absolute;
+  top: 5vh;
+  left: 50%;
+  transform: translateX(-50%);
 }
 
-.modal header {
-    justify-content: space-between;
-    width: 100%;
+.contact-modal header {
+  justify-content: space-between;
+  width: 100%;
 }
 
-.modal header img {
-    cursor: pointer;
+.contact-modal header img {
+  cursor: pointer;
 }
 
-.modal header h2 {
-    font-size: 64px;
-    font-weight: normal;
-    text-align: center;
+.contact-modal header h2 {
+  font-size: 64px;
+  font-weight: normal;
+  text-align: center;
 }
 
 form {
-    display: flex;
-    width: 100%;
-    flex-direction: column;
-    align-items: flex-start;
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  align-items: flex-start;
 }
 
 form label {
-    color: #312E2E;
-    font-size: 36px;
+  color: #312E2E;
+  font-size: 36px;
 }
 
 form div {
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-    align-items: self-start;
-    margin-bottom: 26px;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  align-items: self-start;
+  margin-bottom: 26px;
 }
 
 form input {
-    width: 100%;
-    height: 68px;
-    border: none;
-    border-radius: 5px;
-}
-
-.select-filter-container {
-  width: fit-content;
-  height: 69px;
+  width: 100%;
+  height: 68px;
+  border: none;
   border-radius: 5px;
-  display: flex;
-  align-items: center;
 }
 
-.select-filter-container label {
-  margin-right: 10px;
-}
-
-.select-filter {
-  width: 170px;
-  height: 69px;
-  background-color: #901C1C;
-  font-size: 18px;
-  color: #FFFFFF;
+form textarea {
+  width: 100%;
+  height: 130px;
+  border: none;
   border-radius: 5px;
+}
+
+.contact-modal-container {
+  display: block;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #dddddd87;
+}
+
+.text-control {
+  padding: 8px;
+  font-size: 20px;
+}
+
+.form-data[data-error]::after {
+  content: attr(data-error);
+  display: block;
+  margin-top: 8px;
+  color: #e54858;
+}
+
+.form-data[data-error]::after {
+  content: attr(data-error);
+  display: block;
+}
+
+.form-data[data-error-visible="false"]::after {
+  display: none;
+}
+
+.form-data[data-error-visible="true"] .text-control {
+  border: 2px solid #e54858;
 }

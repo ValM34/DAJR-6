@@ -59,6 +59,32 @@ async function displayData(photographer, images) {
   const selectDOM = photographerModel.getSelectDOM();
   main.appendChild(selectDOM);
 
+  // Handle select
+  const selectContainerEl = document.querySelector("#select_container");
+  optionsElArr = document.querySelectorAll('#select_container > p');
+  optionsElArr.forEach((option) => {
+    option.addEventListener('click', () => {
+      if(option.getAttribute('data-selected') === 'true') {
+        selectContainerEl.classList.toggle('is-open');
+
+      } else if(option.getAttribute('data-selected') === 'false') {
+        // reset all options to data-selected = false
+        optionsElArr.forEach((option2) => {
+          option2.setAttribute('data-selected', 'false');
+        })
+        // Replace elements by filter
+        option.setAttribute('data-selected', 'true');
+        selectContainerEl.classList.remove('is-open');
+        galleryDOM.remove();
+        const filter = option.getAttribute('data-filter');
+        const galleryDOMFiltered = photographerModel.getGalleryDOM(filter);
+        const elementsInGalleryDOM = document.querySelectorAll('.gallery-container > *');
+        elementsInGalleryDOM.forEach(elementInGalleryDOM => elementInGalleryDOM.remove());
+        main.appendChild(galleryDOMFiltered);
+      }
+    })
+  })
+
   // Display gallery
   const galleryDOM = photographerModel.getGalleryDOM();
   main.appendChild(galleryDOM);

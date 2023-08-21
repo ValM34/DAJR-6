@@ -202,3 +202,42 @@ h1 {
   font-weight: 400;
   color: #901C1C;
 }
+
+.select-container > p[data-selected="false"] {
+  display: none;
+}
+
+.select-container.is-open > p[data-selected="false"] {
+  display: block;
+}
+
+.select-container {
+  display: flex;
+  flex-direction: column;
+  background-color: #901C1C;
+  font-size: 18px;
+  font-weight: 700;
+  color: white;
+  border-radius: 5px;
+  width: 170px;
+}
+
+.select-container > p {
+  padding: 22px 10px;
+  position: relative;
+}
+
+.select-container.is-open > p::after {
+  content: "";
+  height: 1px;
+  background-color: white;
+  position: absolute;
+  left: 50%;
+  bottom: 10px;
+  transform: translateX(-50%);
+  width: 90%;
+}
+
+.select-container.is-open > p:nth-child(3)::after {
+  content: none;
+}
