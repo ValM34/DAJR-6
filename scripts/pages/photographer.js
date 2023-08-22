@@ -60,8 +60,8 @@ async function displayData(photographer, images) {
   main.appendChild(selectDOM);
 
   // Handle select
-  const selectContainerEl = document.querySelector("#select_container");
-  optionsElArr = document.querySelectorAll('#select_container > p');
+  const selectContainerEl = document.querySelector("#select_sub_container");
+  optionsElArr = document.querySelectorAll('#select_sub_container > p');
   optionsElArr.forEach((option) => {
     option.addEventListener('click', () => {
       if(option.getAttribute('data-selected') === 'true') {
@@ -75,12 +75,13 @@ async function displayData(photographer, images) {
         // Replace elements by filter
         option.setAttribute('data-selected', 'true');
         selectContainerEl.classList.remove('is-open');
-        galleryDOM.remove();
+        //galleryDOM.remove();
         const filter = option.getAttribute('data-filter');
         const galleryDOMFiltered = photographerModel.getGalleryDOM(filter);
         const elementsInGalleryDOM = document.querySelectorAll('.gallery-container > *');
         elementsInGalleryDOM.forEach(elementInGalleryDOM => elementInGalleryDOM.remove());
         main.appendChild(galleryDOMFiltered);
+        alimenteModalMedia();
       }
     })
   })
@@ -101,17 +102,20 @@ async function displayData(photographer, images) {
 
   // Alimente modal media
   const modalMediaEl = document.querySelector('.container-modal-media');
-  images[0].forEach(image => {
-    const imgEl = document.querySelector(`#media-${image.id}`);
-    imgEl.addEventListener('click', () => {
-      const mediaIndex = images[0].findIndex(media => media.id === image.id);
-      const [modalMediaDOM, modalTitleDOM] = photographerModel.getModalElementMediaDOM(images[0][mediaIndex]);
-      const containerImgEl = document.querySelector('#container_image_modal_media');
-      containerImgEl.appendChild(modalMediaDOM);
-      containerImgEl.appendChild(modalTitleDOM);
-      modalMediaEl.classList.add('is-open');
+  function alimenteModalMedia() {
+    images[0].forEach(image => {
+      const imgEl = document.querySelector(`#media-${image.id}`);
+      imgEl.addEventListener('click', () => {
+        const mediaIndex = images[0].findIndex(media => media.id === image.id);
+        const [modalMediaDOM, modalTitleDOM] = photographerModel.getModalElementMediaDOM(images[0][mediaIndex]);
+        const containerImgEl = document.querySelector('#container_image_modal_media');
+        containerImgEl.appendChild(modalMediaDOM);
+        containerImgEl.appendChild(modalTitleDOM);
+        modalMediaEl.classList.add('is-open');
+      })
     })
-  })
+  }
+  alimenteModalMedia();
 
   // Close modal media
   const closeModalMediaEl = document.querySelector('#close_modal_media');
