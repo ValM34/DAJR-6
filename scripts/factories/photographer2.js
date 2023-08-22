@@ -32,7 +32,13 @@ function photographerComponents(data, images) {
     const selectContainer = document.createElement('div');
     selectContainer.classList.add("select-container");
     selectContainer.setAttribute('id', 'select_container');
-    selectContainer.setAttribute('data-selected', 'closed');
+
+    const selectSubContainer = document.createElement('div');
+    selectSubContainer.classList.add("select-sub-container");
+    selectSubContainer.setAttribute('id', 'select_sub_container');
+    selectSubContainer.setAttribute('data-selected', 'closed');
+
+    selectContainer.appendChild(selectSubContainer);
 
     const popularity = document.createElement('p');
     popularity.textContent = "popularité";
@@ -47,9 +53,9 @@ function photographerComponents(data, images) {
     title.setAttribute('data-selected', 'false');
     title.setAttribute('data-filter', 'title');
 
-    selectContainer.appendChild(popularity);
-    selectContainer.appendChild(date);
-    selectContainer.appendChild(title);
+    selectSubContainer.appendChild(popularity);
+    selectSubContainer.appendChild(date);
+    selectSubContainer.appendChild(title);
 
     return selectContainer;
   }
@@ -83,6 +89,7 @@ function photographerComponents(data, images) {
         img = document.createElement('img');
         img.setAttribute('src', `./assets/gallery/${id}/${image.image}`);
         img.setAttribute('id', `media-${image.id}`);
+        img.classList.add('gallery-img-card-media');
       }
       let video;
       if(image.video !== undefined) {
@@ -92,6 +99,7 @@ function photographerComponents(data, images) {
         source.setAttribute('type', 'video/mp4');
         video.appendChild(source);
         video.setAttribute('id', `media-${image.id}`);
+        video.classList.add('gallery-img-card-media');
       }
       
       const infos = document.createElement('div');
