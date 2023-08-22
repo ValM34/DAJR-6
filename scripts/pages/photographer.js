@@ -82,6 +82,7 @@ async function displayData(photographer, images) {
         elementsInGalleryDOM.forEach(elementInGalleryDOM => elementInGalleryDOM.remove());
         main.appendChild(galleryDOMFiltered);
         alimenteModalMedia();
+        handleLikes();
       }
     })
   })
@@ -91,10 +92,29 @@ async function displayData(photographer, images) {
   main.appendChild(galleryDOM);
 
   // Display daily price
-  const dailyPriceDOM = photographerModel.getDailyPriceDOM();
+  let totalOfLikes = 0;
+  images[0].forEach(image => totalOfLikes += image.likes);
+  const dailyPriceDOM = photographerModel.getDailyPriceDOM(totalOfLikes);
   main.appendChild(dailyPriceDOM);
-  
- 
+
+  // Handle likes
+  function handleLikes() {
+    const likesNumberArray = document.querySelectorAll('.likes-number');
+    const TJMLikesNumber = document.querySelector('#TJM_likes_number');
+    likesNumberArray.forEach(likesNumber => {
+      likesNumber.addEventListener('click', () => {
+        if(likesNumber.classList.contains('likes-number-modified')) {
+          likesNumber.textContent = parseInt(likesNumber.textContent) - 1;
+          TJMLikesNumber.textContent = parseInt(TJMLikesNumber.textContent) - 1;
+        } else {
+          likesNumber.textContent = parseInt(likesNumber.textContent) + 1;
+          TJMLikesNumber.textContent = parseInt(TJMLikesNumber.textContent) + 1;
+        }
+        likesNumber.classList.toggle('likes-number-modified');
+      })
+    })
+  }
+  handleLikes();
 
   // Display modal media
   const modalMediaDOM = photographerModel.getModalMediaDOM();

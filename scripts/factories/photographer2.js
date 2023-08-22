@@ -119,6 +119,7 @@ function photographerComponents(data, images) {
 
       const likesNumberContainer = document.createElement('div');
       const likes = document.createElement('div');
+      likes.classList.add('likes-number');
       likes.textContent = image.likes;
       likesNumberContainer.appendChild(likes);
 
@@ -143,13 +144,14 @@ function photographerComponents(data, images) {
     return container;
   }
 
-  function getDailyPriceDOM() {
+  function getDailyPriceDOM(totalOfLikes) {
     const container = document.createElement('div');
     container.classList.add('daily-price-container');
     const likesContainer = document.createElement('div');
     likesContainer.classList.add('TJM-likes-container');
     const likesNumber = document.createElement('p');
-    likesNumber.textContent = '297 081';
+    likesNumber.setAttribute('id', 'TJM_likes_number');
+    likesNumber.textContent = totalOfLikes;
     const likesHeart = document.createElement('img');
     likesHeart.setAttribute('src', '../../assets/icons/heart-solid-black.svg');
     likesHeart.classList.add('icon-heart');
