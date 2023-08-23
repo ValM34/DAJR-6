@@ -1,11 +1,15 @@
 function displayModal() {
   const modal = document.getElementById("contact_modal");
   modal.style.display = "block";
+  const body = document.querySelector('body');
+  body.style.overflowY = 'hidden';
 }
 
 function closeModal() {
   const modal = document.getElementById("contact_modal");
   modal.style.display = "none";
+  const body = document.querySelector('body');
+  body.style.overflowY = 'auto';
 }
 
 const modal = document.getElementById("contact_form");
@@ -18,7 +22,6 @@ const message = document.querySelector("#message");
 modal.addEventListener('submit', (e) => {
   e.preventDefault();
   validateForm();
-  console.log(validateForm())
 });
 
 // verify if form entries are valid
@@ -36,7 +39,6 @@ function validateForm() {
   // Handle error messages
   for (const [key, value] of Object.entries(form.form)) {
     // Containers id must named like this : '#[variable]_container'
-    console.log(`#${form.form[key].name}_container`)
     container = document.querySelector(`#${form.form[key].name}_container`);
     if (form.form[key].isValid === false) {
       container.setAttribute("data-error", form.form[key].errorMessage);
@@ -44,6 +46,10 @@ function validateForm() {
     } else {
       container.setAttribute("data-error-visible", "false");
     }
+  }
+
+  if(form.isValid()) {
+    console.log(form);
   }
 
   // If form is valid return true
