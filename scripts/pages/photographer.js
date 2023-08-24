@@ -61,7 +61,7 @@ async function displayData(photographer, images) {
 
   // Handle select
   const selectContainerEl = document.querySelector("#select_sub_container");
-  optionsElArr = document.querySelectorAll('#select_sub_container > p');
+  const optionsElArr = document.querySelectorAll('#select_sub_container > p');
   optionsElArr.forEach((option) => {
     option.addEventListener('click', () => {
       if(option.getAttribute('data-selected') === 'true') {

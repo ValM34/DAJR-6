@@ -52,7 +52,12 @@ function photographerComponents(data, images) {
     title.textContent = "title";
     title.setAttribute('data-selected', 'false');
     title.setAttribute('data-filter', 'title');
+    const chevron = document.createElement('img');
+    chevron.setAttribute('src', './assets/icons/chevron-white.svg');
+    chevron.setAttribute('id', 'chevron_select');
+    chevron.classList.add('icon-chevron-white-select');
 
+    selectSubContainer.appendChild(chevron);
     selectSubContainer.appendChild(popularity);
     selectSubContainer.appendChild(date);
     selectSubContainer.appendChild(title);
