@@ -199,6 +199,10 @@ form textarea {
     text-align: center;
     margin-bottom: 30px;
 
+    @include breakpoint(lg) {
+      text-align: left;
+    }
+
     h1 {
       margin-right: 0;
     }
@@ -228,6 +232,10 @@ form textarea {
 
   @include breakpoint(md) {
     grid-template-columns: 1fr 1fr;
+    margin: 0 30px;
+  }
+
+  @include breakpoint(lg) {
     margin: 0 100px;
   }
 
@@ -320,6 +328,7 @@ form textarea {
   border-top-right-radius: 10px;
   width: 100%;
   right: 0;
+  z-index: 1;
 
   @include breakpoint(md) {
     width: 376px;
@@ -364,14 +373,21 @@ form textarea {
     }
 
     .img-modal-media {
-      max-height: 90vh;
+      max-height: 80vh;
       max-width: 100%;
+      margin: auto;
+      display: block;
     }
 
     .title-modal-media {
       font-size: 24px;
       font-weight: 400;
       color: $primary-color;
+      text-align: center;
+
+      @include breakpoint(md) {
+        text-align: left;
+      }
     }
   }
 
@@ -412,15 +428,26 @@ form textarea {
 // Select component
 .select-container {
   position: relative;
-  height: 68px;
+  height: 100px;
   margin-top: 30px;
   margin-bottom: 30px;
   display: flex;
   justify-content: center;
 
   @include breakpoint(md) {
+    justify-content: flex-start;
+    align-items: center;
+    height: 68px;
+    margin-left: 30px;
+  }
+
+  @include breakpoint(lg) {
     margin-left: 100px;
-    display: block;
+  }
+
+  .label-select {
+    font-weight: 600;
+    font-size: 18px;
   }
 
   .select-sub-container {
@@ -433,7 +460,13 @@ form textarea {
     border-radius: 5px;
     width: 170px;
     position: absolute;
+    top: 40px;
     z-index: 10;
+
+    @include breakpoint(md) {
+      left: 90px;
+      top: 0;
+    }
 
     .icon-chevron-white-select {
       width: 18px;

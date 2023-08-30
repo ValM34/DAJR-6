@@ -242,6 +242,11 @@ form textarea {
   text-align: center;
   margin-bottom: 30px;
 }
+@media (min-width: 1025px) {
+  .photograph-header div {
+    text-align: left;
+  }
+}
 .photograph-header div h1 {
   margin-right: 0;
 }
@@ -265,6 +270,11 @@ form textarea {
 @media (min-width: 768px) {
   .gallery-container {
     grid-template-columns: 1fr 1fr;
+    margin: 0 30px;
+  }
+}
+@media (min-width: 1025px) {
+  .gallery-container {
     margin: 0 100px;
   }
 }
@@ -343,6 +353,7 @@ form textarea {
   border-top-right-radius: 10px;
   width: 100%;
   right: 0;
+  z-index: 1;
 }
 @media (min-width: 768px) {
   .daily-price-container {
@@ -385,13 +396,21 @@ form textarea {
   }
 }
 .container-modal-media .container-image-modal-media .img-modal-media {
-  max-height: 90vh;
+  max-height: 80vh;
   max-width: 100%;
+  margin: auto;
+  display: block;
 }
 .container-modal-media .container-image-modal-media .title-modal-media {
   font-size: 24px;
   font-weight: 400;
   color: #901C1C;
+  text-align: center;
+}
+@media (min-width: 768px) {
+  .container-modal-media .container-image-modal-media .title-modal-media {
+    text-align: left;
+  }
 }
 .container-modal-media .close-modal-media {
   position: absolute;
@@ -428,7 +447,7 @@ form textarea {
 
 .select-container {
   position: relative;
-  height: 68px;
+  height: 100px;
   margin-top: 30px;
   margin-bottom: 30px;
   display: flex;
@@ -436,9 +455,20 @@ form textarea {
 }
 @media (min-width: 768px) {
   .select-container {
-    margin-left: 100px;
-    display: block;
+    justify-content: flex-start;
+    align-items: center;
+    height: 68px;
+    margin-left: 30px;
   }
+}
+@media (min-width: 1025px) {
+  .select-container {
+    margin-left: 100px;
+  }
+}
+.select-container .label-select {
+  font-weight: 600;
+  font-size: 18px;
 }
 .select-container .select-sub-container {
   display: flex;
@@ -450,7 +480,14 @@ form textarea {
   border-radius: 5px;
   width: 170px;
   position: absolute;
+  top: 40px;
   z-index: 10;
+}
+@media (min-width: 768px) {
+  .select-container .select-sub-container {
+    left: 90px;
+    top: 0;
+  }
 }
 .select-container .select-sub-container .icon-chevron-white-select {
   width: 18px;
