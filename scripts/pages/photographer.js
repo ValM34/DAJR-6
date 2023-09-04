@@ -58,33 +58,17 @@ async function displayData(photographer, images) {
   const main = document.querySelector('#main');
   const selectDOM = photographerModel.getSelectDOM();
   main.appendChild(selectDOM);
-
   // Handle select
-  const selectContainerEl = document.querySelector("#select_sub_container");
-  const optionsElArr = document.querySelectorAll('#select_sub_container > p');
-  optionsElArr.forEach((option) => {
-    option.addEventListener('click', () => {
-      if(option.getAttribute('data-selected') === 'true') {
-        selectContainerEl.classList.toggle('is-open');
-
-      } else if(option.getAttribute('data-selected') === 'false') {
-        // reset all options to data-selected = false
-        optionsElArr.forEach((option2) => {
-          option2.setAttribute('data-selected', 'false');
-        })
-        // Replace elements by filter
-        option.setAttribute('data-selected', 'true');
-        selectContainerEl.classList.remove('is-open');
-        //galleryDOM.remove();
-        const filter = option.getAttribute('data-filter');
-        const galleryDOMFiltered = photographerModel.getGalleryDOM(filter);
-        const elementsInGalleryDOM = document.querySelectorAll('.gallery-container > *');
-        elementsInGalleryDOM.forEach(elementInGalleryDOM => elementInGalleryDOM.remove());
-        main.appendChild(galleryDOMFiltered);
-        alimenteModalMedia();
-        handleLikes();
-      }
-    })
+  const selectEl = document.querySelector('#order_by');
+  console.log(selectEl.value)
+  selectEl.addEventListener('change', () => {
+    console.log(selectEl.value)
+    const galleryDOMFiltered = photographerModel.getGalleryDOM(selectEl.value);
+    const elementsInGalleryDOM = document.querySelectorAll('.gallery-container > *');
+    elementsInGalleryDOM.forEach(elementInGalleryDOM => elementInGalleryDOM.remove());
+    main.appendChild(galleryDOMFiltered);
+    alimenteModalMedia();
+    handleLikes();
   })
 
   // Display gallery
@@ -99,10 +83,11 @@ async function displayData(photographer, images) {
 
   // Handle likes
   function handleLikes() {
-    const likesNumberArray = document.querySelectorAll('.likes-number');
+    const likesContainerArray = document.querySelectorAll('.likes-container');
     const TJMLikesNumber = document.querySelector('#TJM_likes_number');
-    likesNumberArray.forEach(likesNumber => {
-      likesNumber.addEventListener('click', () => {
+    likesContainerArray.forEach(likesContainer => {
+      const likesNumber = likesContainer.querySelector('.likes-number');
+      likesContainer.addEventListener('click', () => {
         if(likesNumber.classList.contains('likes-number-modified')) {
           likesNumber.textContent = parseInt(likesNumber.textContent) - 1;
           TJMLikesNumber.textContent = parseInt(TJMLikesNumber.textContent) - 1;
@@ -124,8 +109,9 @@ async function displayData(photographer, images) {
   const modalMediaEl = document.querySelector('.container-modal-media');
   function alimenteModalMedia() {
     images[0].forEach(image => {
-      const imgEl = document.querySelector(`#media-${image.id}`);
-      imgEl.addEventListener('click', () => {
+      const imgLinkEl = document.querySelector(`#media-${image.id}`);
+      imgLinkEl.addEventListener('click', (e) => {
+        e.preventDefault();
         const mediaIndex = images[0].findIndex(media => media.id === image.id);
         const [modalMediaDOM, modalTitleDOM] = photographerModel.getModalElementMediaDOM(images[0][mediaIndex]);
         const containerImgEl = document.querySelector('#container_image_modal_media');
@@ -194,6 +180,68 @@ async function displayData(photographer, images) {
     const containerImgEl2 = document.querySelector('#container_image_modal_media');
     containerImgEl2.appendChild(modalMediaDOM);
     containerImgEl2.appendChild(modalTitleDOM);
+  })
+
+  // Handle lightbox with keyboard
+  document.addEventListener('keydown', (e) => {
+    if(e.key === 'ArrowLeft'){
+      const containerMediaEl = document.querySelectorAll('#container_image_modal_media > *');
+      // Trouve l'id de l'ancienne image
+      const lastImgId = containerMediaEl[0].getAttribute('data-media-id');
+      let lastMediaIndex = images[0].findIndex(media => media.id === parseInt(lastImgId));
+      let newMediaIndex;
+      if(lastMediaIndex === 0) {
+        newMediaIndex = images[0].length - 1;
+      } else {
+        newMediaIndex = lastMediaIndex - 1;
+      }
+      // Supprime l'ancienne image
+      containerMediaEl.forEach(imgEl => {
+        imgEl.remove();
+      })
+      // Ajoute l'image précédente grâce à l'id de l'ancienne image
+      const [modalMediaDOM, modalTitleDOM] = photographerModel.getModalElementMediaDOM(images[0][newMediaIndex]);
+      const containerImgEl2 = document.querySelector('#container_image_modal_media');
+      containerImgEl2.appendChild(modalMediaDOM);
+      containerImgEl2.appendChild(modalTitleDOM);
+    } else if(e.key === 'ArrowRight'){
+      const containerMediaEl = document.querySelectorAll('#container_image_modal_media > *');
+      // Trouve l'id de l'ancienne image
+      const lastImgId = containerMediaEl[0].getAttribute('data-media-id');
+      let lastMediaIndex = images[0].findIndex(media => media.id === parseInt(lastImgId));
+      let newMediaIndex;
+      if(lastMediaIndex === images[0].length - 1) {
+        newMediaIndex = 0;
+      } else {
+        newMediaIndex = lastMediaIndex + 1;
+      }
+      // Supprime l'ancienne image
+      containerMediaEl.forEach(imgEl => {
+        imgEl.remove();
+      })
+      // Ajoute l'image suivante grâce à l'id de l'ancienne image
+      const [modalMediaDOM, modalTitleDOM] = photographerModel.getModalElementMediaDOM(images[0][newMediaIndex]);
+      const containerImgEl2 = document.querySelector('#container_image_modal_media');
+      containerImgEl2.appendChild(modalMediaDOM);
+      containerImgEl2.appendChild(modalTitleDOM);
+    } else if(e.key === 'Escape') {
+      const containerImgEl = document.querySelectorAll('#container_image_modal_media > *');
+      console.log(containerImgEl)
+      containerImgEl.forEach(imgEl => {
+        imgEl.remove();
+      })
+      modalMediaEl.classList.remove('is-open');
+    }
+  })
+
+  // Add artist name to contact modal
+  const contactArtisteName = document.querySelector('#contact_artist_name');
+  contactArtisteName.textContent = photographer[0].name;
+  // Close contact modal with keyboard
+  document.addEventListener('keydown', (e) => {
+    if(e.key === 'Escape') {
+      closeModal();
+    }
   })
 }
 

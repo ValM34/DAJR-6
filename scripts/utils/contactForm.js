@@ -3,6 +3,10 @@ function displayModal() {
   modal.style.display = "block";
   const body = document.querySelector('body');
   body.style.overflowY = 'hidden';
+  // Focus first input
+  const firstInput = document.querySelector('#contact_form input');
+  console.log(firstInput);
+  firstInput.focus();
 }
 
 function closeModal() {

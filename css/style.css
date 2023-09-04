@@ -95,6 +95,11 @@ h1 {
   justify-content: space-between;
   width: 100%;
   flex-direction: row;
+  align-items: flex-start;
+  height: auto;
+}
+.contact-modal-container .contact-modal header .contact-artiste-name {
+  width: fit-content;
 }
 .contact-modal-container .contact-modal h2 {
   font-weight: normal;
@@ -261,6 +266,11 @@ form textarea {
   object-position: center;
   margin-bottom: 20px;
 }
+@media (min-width: 1025px) {
+  .photograph-header img {
+    margin-top: 20px;
+  }
+}
 
 .gallery-container {
   display: grid;
@@ -327,18 +337,21 @@ form textarea {
   border-radius: 10px;
   position: relative;
 }
-.gallery-container .gallery-img-card .icon-heart-container {
+.gallery-container .gallery-img-card .likes-container {
+  display: flex;
+}
+.gallery-container .gallery-img-card .likes-container:hover {
+  cursor: pointer;
+}
+.gallery-container .gallery-img-card .likes-container .icon-heart-container {
   display: flex;
   align-items: center;
 }
-.gallery-container .gallery-img-card .icon-heart-container .icon-heart {
+.gallery-container .gallery-img-card .likes-container .icon-heart-container .icon-heart {
   width: 20px;
   margin-left: 5px;
   height: 20px;
   vertical-align: bottom;
-}
-.gallery-container .gallery-img-card .likes-container {
-  display: flex;
 }
 
 .daily-price-container {
@@ -418,6 +431,9 @@ form textarea {
   top: 5vh;
   width: 40px;
 }
+.container-modal-media .close-modal-media:hover {
+  cursor: pointer;
+}
 .container-modal-media .prev-modal-media {
   position: absolute;
   top: auto;
@@ -430,6 +446,9 @@ form textarea {
   .container-modal-media .prev-modal-media {
     top: 50%;
   }
+}
+.container-modal-media .prev-modal-media:hover {
+  cursor: pointer;
 }
 .container-modal-media .next-modal-media {
   position: absolute;
@@ -444,6 +463,9 @@ form textarea {
     top: 50%;
   }
 }
+.container-modal-media .next-modal-media:hover {
+  cursor: pointer;
+}
 
 .select-container {
   position: relative;
@@ -457,7 +479,7 @@ form textarea {
   .select-container {
     justify-content: flex-start;
     align-items: center;
-    height: 68px;
+    height: auto;
     margin-left: 30px;
   }
 }
@@ -488,6 +510,9 @@ form textarea {
     left: 90px;
     top: 0;
   }
+}
+.select-container .select-sub-container:hover {
+  cursor: pointer;
 }
 .select-container .select-sub-container .icon-chevron-white-select {
   width: 18px;

@@ -29,48 +29,6 @@ function photographerComponents(data, images) {
     return portrait;
   }
 
-  function getSelectDOM() {
-    const selectContainer = document.createElement('div');
-    selectContainer.classList.add("select-container");
-    selectContainer.setAttribute('id', 'select_container');
-
-    const label = document.createElement('p');
-    label.classList.add('label-select');
-    label.textContent = "Trier par";
-
-    const selectSubContainer = document.createElement('div');
-    selectSubContainer.classList.add("select-sub-container");
-    selectSubContainer.setAttribute('id', 'select_sub_container');
-    selectSubContainer.setAttribute('data-selected', 'closed');
-
-    selectContainer.appendChild(label);
-    selectContainer.appendChild(selectSubContainer);
-
-    const popularity = document.createElement('p');
-    popularity.textContent = "popularité";
-    popularity.setAttribute('data-selected', 'true');
-    popularity.setAttribute('data-filter', 'popularity');
-    const date = document.createElement('p');
-    date.textContent = "date";
-    date.setAttribute('data-selected', 'false');
-    date.setAttribute('data-filter', 'date');
-    const title = document.createElement('p');
-    title.textContent = "title";
-    title.setAttribute('data-selected', 'false');
-    title.setAttribute('data-filter', 'title');
-    const chevron = document.createElement('img');
-    chevron.setAttribute('src', './assets/icons/chevron-white.svg');
-    chevron.setAttribute('id', 'chevron_select');
-    chevron.classList.add('icon-chevron-white-select');
-
-    selectSubContainer.appendChild(chevron);
-    selectSubContainer.appendChild(popularity);
-    selectSubContainer.appendChild(date);
-    selectSubContainer.appendChild(title);
-
-    return selectContainer;
-  }
-
   function getGalleryDOM(filter = 'popularity') {
     const container = document.createElement('div');
     container.classList.add('gallery-container');
@@ -93,14 +51,18 @@ function photographerComponents(data, images) {
 
     imagesCopy.forEach(image => {
       const imageCard = document.createElement('div');
-      imageCard.classList.add('gallery-img-card')
-      
+      imageCard.classList.add('gallery-img-card');
+      const linkMedia = document.createElement('a');
+      linkMedia.setAttribute('id', `media-${image.id}`);
+      linkMedia.setAttribute('href', '');
+      imageCard.appendChild(linkMedia);
+
       let img;
       if(image.image !== undefined) {
         img = document.createElement('img');
         img.setAttribute('src', `./assets/gallery/${id}/${image.image}`);
-        img.setAttribute('id', `media-${image.id}`);
         img.classList.add('gallery-img-card-media');
+        img.setAttribute('alt', image.title);
       }
       let video;
       if(image.video !== undefined) {
@@ -109,8 +71,8 @@ function photographerComponents(data, images) {
         source.setAttribute('src', `./assets/gallery/${id}/${image.video}`);
         source.setAttribute('type', 'video/mp4');
         video.appendChild(source);
-        video.setAttribute('id', `media-${image.id}`);
         video.classList.add('gallery-img-card-media');
+        video.setAttribute('aria-label', image.title);
       }
       
       const infos = document.createElement('div');
@@ -142,10 +104,10 @@ function photographerComponents(data, images) {
       infos.appendChild(likesContainer);
   
       if(image.image !== undefined) {
-        imageCard.appendChild(img);
+        linkMedia.appendChild(img);
       }
       if(image.video !== undefined) {
-        imageCard.appendChild(video);
+        linkMedia.appendChild(video);
       }
 
       imageCard.appendChild(infos);
@@ -190,14 +152,17 @@ function photographerComponents(data, images) {
     closeModalMediaEl.setAttribute('src', './assets/icons/close.svg');
     closeModalMediaEl.classList.add('close-modal-media');
     closeModalMediaEl.setAttribute('id', 'close_modal_media');
+    closeModalMediaEl.setAttribute('alt', 'fermer');
     const prevModalMedia = document.createElement('img');
     prevModalMedia.setAttribute('src', './assets/icons/chevron.svg');
     prevModalMedia.classList.add('prev-modal-media');
     prevModalMedia.setAttribute('id', 'prev_modal_media');
+    prevModalMedia.setAttribute('alt', 'image précédente');
     const nextModalMedia = document.createElement('img');
     nextModalMedia.setAttribute('src', './assets/icons/chevron.svg');
     nextModalMedia.classList.add('next-modal-media');
     nextModalMedia.setAttribute('id', 'next_modal_media');
+    nextModalMedia.setAttribute('alt', 'image suivante');
     const imgEl = document.createElement('div');
     imgEl.setAttribute('id', 'container_image_modal_media');
     imgEl.classList.add('container-image-modal-media');
@@ -221,6 +186,7 @@ function photographerComponents(data, images) {
       const img = document.createElement('img');
       img.setAttribute('src', `./assets/gallery/${media.photographerId}/${media.image}`);
       img.setAttribute('data-media-id', `${media.id}`);
+      img.setAttribute('alt', `${media.title}`);
       img.classList.add('img-modal-media');
     
       mediaEl = img;
@@ -231,6 +197,7 @@ function photographerComponents(data, images) {
       source.setAttribute('src', `./assets/gallery/${media.photographerId}/${media.video}`);
       source.setAttribute('type', 'video/mp4');
       video.setAttribute('data-media-id', `${media.id}`);
+      video.setAttribute('aria-label', `${media.title}`);
       video.classList.add('img-modal-media');
   
       video.appendChild(source);
@@ -239,6 +206,51 @@ function photographerComponents(data, images) {
     }
 
     return [mediaEl, titleEl];
+  }
+
+  function getSelectDOM() {
+    const selectContainer = document.createElement('div');
+    selectContainer.classList.add("select-container");
+    selectContainer.setAttribute('id', 'select_container');
+
+    const label = document.createElement('label');
+    label.classList.add('label-select');
+    label.textContent = "Trier par";
+    label.setAttribute('for', 'order_by');
+
+    const select = document.createElement('select');
+    select.classList.add("select-sub-container");
+    select.setAttribute('id', 'order_by');
+    select.setAttribute('name', 'order_by');
+    select.setAttribute('aria-expanded', '');
+    select.setAttribute('role', 'button');
+    select.setAttribute('aria-haspopup', 'listbox');
+
+    selectContainer.appendChild(label);
+    selectContainer.appendChild(select);
+
+    const popularity = document.createElement('option');
+    popularity.textContent = "popularité";
+    popularity.setAttribute('data-selected', 'true');
+    popularity.setAttribute('data-filter', 'popularity');
+    popularity.setAttribute('value', 'popularity');
+    popularity.setAttribute('aria-label', 'popularity');
+    const date = document.createElement('option');
+    date.textContent = "date";
+    date.setAttribute('data-selected', 'false');
+    date.setAttribute('data-filter', 'date');
+    date.setAttribute('value', 'date');
+    const title = document.createElement('option');
+    title.textContent = "title";
+    title.setAttribute('data-selected', 'false');
+    title.setAttribute('data-filter', 'title');
+    title.setAttribute('value', 'title');
+
+    select.appendChild(popularity);
+    select.appendChild(date);
+    select.appendChild(title);
+
+    return selectContainer;
   }
 
   return { getPersonalDataDOM, getPortraitDOM, getSelectDOM, getGalleryDOM, getDailyPriceDOM, getModalMediaDOM, getModalElementMediaDOM };
