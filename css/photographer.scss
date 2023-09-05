@@ -66,6 +66,10 @@
       @include breakpoint(xl) {
         font-size: 64px;
       }
+
+      .contact-me-msg {
+        text-align: left;
+      }
     }
 
     label {

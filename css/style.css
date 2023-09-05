@@ -121,6 +121,9 @@ h1 {
     font-size: 64px;
   }
 }
+.contact-modal-container .contact-modal h2 .contact-me-msg {
+  text-align: left;
+}
 .contact-modal-container .contact-modal label {
   color: #312E2E;
   font-size: 25px;
