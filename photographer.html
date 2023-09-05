@@ -16,14 +16,14 @@
     </header>
     <main id="main">
       <div class="photograph-header">
-        <button id="contact_button" class="contact_button" onclick="displayModal()" title="Contact Me">Contactez-moi</button>
+        <button id="contact_button" class="contact_button" title="Contact Me">Contactez-moi</button>
       </div>
     </main>
     <div id="contact_modal" class="contact-modal-container">
 			<div class="contact-modal">
 				<header>
           <h2>Contactez-moi <p id="contact_artist_name" class="contact-artiste-name"></p></h2>
-          <img class="close-modal-icon" src="assets/icons/close-white.svg" onclick="closeModal()" />
+          <img class="close-modal-icon" id="close_contact_modal" src="assets/icons/close-white.svg" />
         </header>
 				<form id="contact_form">
 					<div>
@@ -68,9 +68,9 @@
 				</form>
 			</div>
 		</div>
-    <script src="scripts/factories/photographer.js"></script>
-    <script src="/scripts/pages/photographer.js"></script>
-    <script src="/scripts/utils/contactForm.js"></script>
-    <script src="/scripts/models/form.js"></script>
+    <script src="scripts/factories/photographer.js" type="module"></script>
+    <script src="/scripts/pages/photographer.js" type="module"></script>
+    <script src="/scripts/utils/contactForm.js" type="module"></script>
+    <script src="/scripts/models/form.js" type="module"></script>
   </body>
 </html>
